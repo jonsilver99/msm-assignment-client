@@ -1,0 +1,61 @@
+body{
+    background: whitesmoke;
+}
+
+.App {
+    // text-align: center;
+}
+
+.App-logo {
+    height: 10vh;
+    pointer-events: none;
+    animation: spin infinite 20s linear;
+}
+
+.App-header {
+    background-color: #282c34;
+    padding: 8px 16px;
+    color: white;
+    font-size: xx-large;
+
+    button{
+        background: none;
+        border: none;
+        color: white;
+        font-size: x-large;
+        border-radius: 10px;
+        width: 100px;
+        margin: 0 6px;
+        display: block;
+        padding: 5px;
+        
+        &:hover{
+            background: rgba(255, 255, 255, 0.534);
+            color: rgba(0, 0, 0, 0.404);
+            cursor: pointer;
+        }
+        
+        &.selected{
+            background: rgba(255, 255, 255, 0.952);
+            color: black;
+
+        }
+    }
+    
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.App-body{}

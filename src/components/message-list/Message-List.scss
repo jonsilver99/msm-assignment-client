@@ -1,0 +1,76 @@
+.message-list{
+    list-style: none;
+    margin-top: 11px;
+    padding: 11px 22px 22px 0px;
+    overflow: auto;
+   
+    li{
+        position: relative;
+        padding: 6px;
+        border: 1px solid;
+        border-radius: 6px;
+        margin-top: 32px;
+        margin-bottom: 64px;
+        min-height: 40px;
+
+        .message-li-phone{
+            position: absolute;
+            bottom: calc(100% + 16px);
+            font-size: small;
+            left: 0;
+
+            &::after{
+                content: "";
+                display: none;
+                position: absolute;
+                left: 100%;
+                top: 0;
+                font-size: 18px;
+                height: 18px;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            }
+        }
+
+        .message-li-date{
+            position: absolute;
+            bottom: calc(100% + 16px);
+            white-space: nowrap;
+            font-size: small;
+            right: 0;
+        }
+        
+        .message-li-length{
+            position: absolute;
+            top: 100%;
+            right: 0;
+            font-size: small;
+            color: rgb(58, 58, 58);
+        }
+
+        &.status-failed{
+            .message-li-phone::after {
+                content: "\2716";
+                display: flex;
+                // color: red;
+            }
+        }
+        
+        &.status-queued{
+            .message-li-phone::after {
+                content: "✔";
+                display: flex;
+                // color: #47d447;            
+            }
+        }
+
+        &.status-sent{
+            .message-li-phone::after {
+                content: "✔✔";
+                display: flex;
+                // color: #47d447;            
+            }
+        }
+    }
+}

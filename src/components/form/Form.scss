@@ -1,0 +1,97 @@
+.Form{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 40px;
+    border-radius: 10px;
+    box-shadow: -1px 2px 5px #7e7e7e;
+    width: 450px;
+    margin: 0 20px;
+    height: 540px;
+    
+    *:not(h2) {
+        margin-top: 16px !important;
+        width: 100%;
+    }
+
+    input{
+        height: 40px;
+        border-radius: 6px;
+        border-width: 1px;
+        padding: 10px;
+    }
+
+    textarea{
+        height: 140px;
+        border-radius: 6px;
+        border-width: 1px;
+        padding: 10px;
+
+        +.text-length-indicator{
+            font-size: small;
+            color: rgb(58, 58, 58);
+            text-align: right;
+            margin-top: 10px !important;
+        }
+
+    }
+
+    .actions{
+        padding: 0 4px;
+        button{
+            width: unset;
+            background: none;
+            border: none;
+            font-size: medium;
+            margin: 0 !important;
+            border-radius: 20px;
+            cursor: pointer;
+        
+            &[type="submit"]{
+                background: black;
+                color:white;
+                padding: 8px 16px;
+                width: 100px;
+                
+                i {
+                    display: none;
+                    margin:0 !important;
+
+                    &::after{
+                        content: "↷";
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 10px;
+                        margin: 0 !important;
+                        animation: spin infinite 2s linear;
+                    }                    
+                }
+
+                &.pending-dub{
+                    i {
+                        display: block;
+                    }
+                }
+            }
+
+            &[type="button"]{
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+    &.pending-sub{
+        opacity: .5;
+        pointer-events: none;
+        
+        i {
+            display: block !important;
+            margin:0 0 0 6px !important;
+    
+        }
+
+    }
+
+}
