@@ -12,9 +12,6 @@ Array.prototype.sortByDate = function (order) {
     return this.sort(f)
 }
 
-console.log(process.env.NODE_ENV)
-console.log(process.env)
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
