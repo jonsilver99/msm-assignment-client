@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Panel from './components/panel/Panel';
 
 function App() {
-    console.log(process.env.REACT_APP_TWILIO_TOKEN)
 
     const [mode, setMode] = useState('front')
 

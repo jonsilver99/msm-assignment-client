@@ -12,7 +12,7 @@ function MessageList({ messageList, onScrolledAllMessages = () => { } }) {
 
     return <ul className="message-list" onScroll={onScrollHandler}>
         {
-            (listItems?.length || 0) > 0 && listItems.sortByDate('desc').map((msg, i) => {
+            (listItems?.length || 0) > 0 && listItems.map((msg, i) => {
                 return (
                     <li className={`message-li status-${msg.status}`} key={`message-li-${i}`} data-sid={msg.sid}>
                         <div className="message-li-phone"><b>{msg.phoneNum}</b></div>
