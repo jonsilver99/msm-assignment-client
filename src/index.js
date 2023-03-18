@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 
 Array.prototype.sortByDate = function (order) {
     let f;
-    if (order === 'desc') f = (a, b) => b.date - a.date 
+    if (order === 'desc') f = (a, b) => b.date - a.date
     else if (order === 'asc') f = (a, b) => a.date - b.date
     return this.sort(f)
 }
@@ -15,9 +14,7 @@ Array.prototype.sortByDate = function (order) {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <App />
     </React.StrictMode>
 );
 

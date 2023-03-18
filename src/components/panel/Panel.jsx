@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react"
 import Form from "../form/Form"
 import History from "../history/History.jsx"
-import HTTP from '../../models/http.js'
 import './Panel.scss'
 
-
-function Panel({ mode }) {
+function Panel({ fetchFunc, submitFunc }) {
     const [pendingSub, setPendingSub] = useState(false)
     const [messageList, setMessageList] = useState([])
-    // const env = config[mode]
-    const env = process.env;
-    let messagesEndpoint;
-
-    if (mode === 'front')
-        messagesEndpoint = `https://api.twilio.com/2010-04-01/Accounts/${env.REACT_APP_TWILIO_ACCOUNT}/Messages.json`
-    else
-        messagesEndpoint = `${env.REACT_APP_BASE_URL}/messages`
-
 
     const fetchMessages = async (skip, take) => {
+        if (!fetchFunc) return
         try {
-            const messages = await (await HTTP.request(`${messagesEndpoint}/${skip}/${take}`, { method: 'GET' })).json()
-            setMessageList((prevState) => [...prevState, ...messages])
+            const messages = await (await fetchFunc(skip, take)).json()
+            setMessageList(prevState => [...prevState, ...messages])
         }
         catch (err) {
             throw err
@@ -34,7 +24,7 @@ function Panel({ mode }) {
         try {
             setPendingSub(true)
 
-            const res = mode === 'front' ? await submitToService(message) : await submitToServer(message)
+            const res = await submitFunc(message)
 
             onMessageSubmissionResult(message, res.ok, await res.json())
 
@@ -57,36 +47,14 @@ function Panel({ mode }) {
         setMessageList((prevState) => [...prevState, message])
     }
 
-    const submitToService = async (message) => {
-        return HTTP.request(messagesEndpoint, {
-            method: 'POST',
-            headers: { 'Authorization': 'Basic ' + btoa(`${env.REACT_APP_TWILIO_ACCOUNT}:${env.REACT_APP_TWILIO_TOKEN}`) },
-            body: new URLSearchParams({
-                Body: message.text,
-                To: message.phoneNum,
-                From: env.REACT_APP_TWILIO_PHONE_NUM,
-            }),
-            cache: 'default',
-        })
-    }
-
-    const submitToServer = async (message) => {
-        return HTTP.request(messagesEndpoint, {
-            method: 'POST',
-            headers: { 'Authorization': 'Basic ' + btoa(`${env.REACT_APP_TWILIO_ACCOUNT}:${env.REACT_APP_TWILIO_TOKEN}`) },
-            body: new URLSearchParams(message),
-            cache: 'default',
-        })
-    }
-
     useEffect(() => {
         setMessageList([])
-        if (mode === 'e2e') fetchMessages(messageList.length, 5)
-    }, [mode])
+        fetchMessages(messageList.length, 5)
+    }, [fetchFunc, submitFunc])
 
     return <div className="panel flex-row justify-center">
         <Form onNewMessageSub={onNewMessageSub} pendingSub={pendingSub} />
-        <History messageList={messageList} onScrolledAllMessages={mode === 'e2e' ? onScrolledAllMessages : undefined} />
+        <History messageList={messageList} onScrolledAllMessages={onScrolledAllMessages} />
     </div>
 }
 
